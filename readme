@@ -3,7 +3,7 @@
 可启动多个SpringWorker 修改参数 127.0.0.1 8879 wk-02 akka.tcp://sparkMaster@127.0.0.1:8877/user/master
 
 打包时
-修改pom中指定的main方法，即可在linux环境下运行
+修改pom中指定的main方法，即可在linux环境下运行，此时注意传参 改为机器自己的IP
 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
     <mainClass>cn.sheep.spark.SparkWorker</mainClass>
 </transformer>
@@ -14,4 +14,4 @@
 
 hdp-01:java -jar master.jar 127.0.0.1 8877 master
 hdp-02:java -jar worker.jar 127.0.0.1 8878 wk-01 akka.tcp://sparkMaster@127.0.0.1:8877/user/master
-hdp-03:java -jar worker.jar 127.0.0.1 8879 wk-02 akka.tcp://sparkMaster@127.0.0.1:8877/user/master# Actor
+hdp-03:java -jar worker.jar 127.0.0.1 8879 wk-02 akka.tcp://sparkMaster@127.0.0.1:8877/user/master
