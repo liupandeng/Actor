@@ -1,0 +1,17 @@
+启动SpringMaster 需传参127.0.0.1 8877 master
+启动SpringWorker 需传参 127.0.0.1 8878 wk-01 akka.tcp://sparkMaster@127.0.0.1:8877/user/master
+可启动多个SpringWorker 修改参数 127.0.0.1 8879 wk-02 akka.tcp://sparkMaster@127.0.0.1:8877/user/master
+
+打包时
+修改pom中指定的main方法，即可在linux环境下运行
+<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+    <mainClass>cn.sheep.spark.SparkWorker</mainClass>
+</transformer>
+
+<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+    <mainClass>cn.sheep.spark.SparkMaster</mainClass>
+</transformer>
+
+hdp-01:java -jar master.jar 127.0.0.1 8877 master
+hdp-02:java -jar worker.jar 127.0.0.1 8878 wk-01 akka.tcp://sparkMaster@127.0.0.1:8877/user/master
+hdp-03:java -jar worker.jar 127.0.0.1 8879 wk-02 akka.tcp://sparkMaster@127.0.0.1:8877/user/master# Actor
